@@ -1,0 +1,1174 @@
+<html>
+<head>
+<script>
+      google.script.run.doGet(e);
+    </script>
+    <title>Basic Education Swar</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Basic Education Swar</title>
+<script>
+        $(document).ready(function () {
+            debugger;
+        });
+        function wait() {
+            $("#PleaseWait").css("display", "block");
+        }
+        function waitcomplete() {
+            $("#PleaseWait").css("display", "none");
+        }
+        function GetLoading() {
+            wait();
+        }
+        function clearNotificationInterval() {
+            debugger
+            window.localStorage.setItem('loggedOut', true);
+        }
+        function storagechange(event) {
+            debugger;
+            if (event.key == 'loggedOut' && event.newValue == 'true') {
+                window.location = '../Login/Logout';
+            }
+            if (window.localStorage.getItem('loggedOut') == 'false') {
+                if (event.key == 'loggedIn' && event.newValue == 'true') {
+                    window.location = '../Login/DemoHomePage';
+                }
+            }
+        }
+        window.addEventListener('storage', storagechange, false);
+        window.localStorage.setItem('loggedOut', false);
+        $(':text,textarea').keypress(function (obj) {
+            debugger;
+            if (obj.currentTarget.classList.contains('cal') == false) {
+                varinputVal = obj.currentTarget.value;
+                if (obj.charCode == 126 || obj.charCode == 124 || (obj.charCode >= 33 &&
+
+    obj.charCode <= 43) || obj.charCode == 45 || (obj.charCode >= 59 &&
+
+    obj.charCode <= 63) || (obj.charCode >= 91 && obj.charCode <= 96) ||
+
+    (obj.charCode == 123)) {
+                    alert("Invalid Charecter Inserted.");
+                    return false;
+                }
+                if (obj.charCode == 32 && inputVal.trim() == "") {
+                    return;
+                }
+                $(obj).focus();
+            }
+        });
+    </script>
+</head>
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+    <script>
+
+    function checkNumeric(obj) {
+        debugger;
+        var num = /^([0-9]+$)/;
+        if ($(obj).val() != "" && $(obj).val() != null) {
+            if (($(obj).val()).search(num) == -1) {
+                alert("Please Enter Only Numeric Value")
+                obj.value = "";
+                obj.focus();
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    }
+</script>
+<script>
+    function GetDetailsAccordingtoSchoolCode(obj) {
+        var a = $('#ddl_school option:selected').text()
+        //var b = a.split("(", 2)
+        //var c = b[1].split(")")
+        //var schoolType = c[0]
+        var num = a.length;
+        var schoolType = (a[num - 4] + "" + a[num - 3] + "" + a[num - 2]).trim()
+        $('#hndSchool_Type').val(schoolType);
+        if ($('#ddlAcademicYear').val() == "0") {
+            alert("Select Academic Year");
+            $('#ddl_school').val('0');
+            $('#ddlAcademicYear').focus();
+        }
+        else if ($('#ddlSchoolMedium').val() == "0") {
+            alert("Select School Medium");
+            $('#ddl_school').val('0');
+            $('#ddlSchoolMedium').focus();
+        }
+        else {
+            GetLoading();
+            var SchoolCode = $(obj).val();
+
+            var schoolType = schoolType, academicYear = $('#ddlAcademicYear').val(), schoolMedium = $('#ddlSchoolMedium').val();
+            var a = a+"<option value="+SchoolCode+">"+SchoolCode+"</option>";
+            document.getElementById("udice").innerHTML=a;
+        }
+    }
+</script>
+<script>
+    function checkMobileNumber(obj) {
+        debugger;
+        CheckLength(obj)
+        if ($(obj).val() != "" && $(obj).val() != null) {
+            if (isNaN($(obj).val())) {
+                alert("Please Enter Numeric (non negative) Input");
+                $(obj).val('');
+                obj.focus();
+                return false;
+            }
+            else if ($(obj).val().length != 10) {
+                alert("Please Enter Proper Mobile Number");
+                $(obj).val('');
+                obj.focus();
+                return false;
+            }
+            else if (parseInt($(obj).val()[0]) != 6 && parseInt($(obj).val()[0]) != 7 && parseInt($(obj).val()[0]) != 8 && parseInt($(obj).val()[0]) != 9) {
+                alert("Please Enter Valid Mobile Number");
+                $(obj).val('');
+                obj.focus();
+                return false;
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    function school_name(sel){
+        var a=sel.options[sel.selectedIndex].text
+        document.getElementById("Sname").value=a;
+
+    }
+</script>
+<nav style="font-size: 3em; background-color: green; text-align: center;color: white;">Basic Education Swar</nav>
+
+ <fieldset>
+         <legend style="text-align:center; background-color: gray;color: white">Student Text Book Distribution</legend>
+                <br>
+                <br>
+                <form method="post" autocomplete="off" name="google-sheet">
+                    <div class="col-sm-2">
+                        <label> School Name</label>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <select class="form-control" id="ddl_school" onchange="GetDetailsAccordingtoSchoolCode(this); school_name(this);"><option value="--select--">--Select--</option>
+<option value="9050306501">PS Aakanagar </OPTION>
+<option value="9050300801">PS Abbas Nagar </OPTION>
+<option value="9050300802">PS Abbasnagar Koyali </OPTION>
+<option value="9050300820">PS Abbaspur </OPTION>
+<option value="9050313701">PS Ahmadabad </OPTION>
+<option value="9050335001">PS Ahmadnagar Kalan </OPTION>
+<option value="9050323201">PS Ajeemnagar </OPTION>
+<option value="9050319101">PS Ajjuwala </OPTION>
+<option value="9050313201">PS Akbarabad </OPTION>
+<option value="9050303202">PS Ali Nagar </OPTION>
+<option value="9050303201">PS Ali Nagar Jageer </OPTION>
+<option value="9050316501">PS Ali Nagar North </OPTION>
+<option value="9050310401">PS Aliganj Patti Kala </OPTION>
+<option value="9050316502">PS Alinagar </OPTION>
+<option value="9050318301">PS Allehpur - Ups </OPTION>
+<option value="9050341901">PS Andha Puri </OPTION>
+<option value="9050308001">PS Apalgarh </OPTION>
+<option value="9050303601">PS Arsal Parsal </OPTION>
+<option value="9050305302">PS Badli </OPTION>
+<option value="9050342201">PS Bala Nagar </OPTION>
+<option value="9050303701">PS Bathua Khera </OPTION>
+<option value="9050300501">PS Bhagwant Nagar </OPTION>
+<option value="9050344901">PS Bharatpur </OPTION>
+<option value="9050314101">PS Bhati Khera </OPTION>
+<option value="9050312601">PS Bhaupura </OPTION>
+<option value="9050343601">PS Bhola Nagla </OPTION>
+<option value="9050316912">PS Bhot Baqqal </OPTION>
+<option value="9050326303">PS Bhovra 1 </OPTION>
+<option value="9050342901">PS Bhukapur </OPTION>
+<option value="9050323101">PS Bhuvari </OPTION>
+<option value="9050326304">PS Bhuwra 2 </OPTION>
+<option value="9050302003">PS Bihari Nagar </OPTION>
+<option value="9050303310">PS Bijar Khata 1 </OPTION>
+<option value="9050303312">PS Bijar Khata 2 </OPTION>
+<option value="9050322401">PS Bizra </OPTION>
+<option value="9050304001">PS Bodhi Dariyal - Ups </OPTION>
+<option value="9050340401">PS Budanpur </OPTION>
+<option value="9050315601">PS Chak Gajraula </OPTION>
+<option value="9050345201">PS Chak Kadim </OPTION>
+<option value="9050312201">PS Chak Khardiya </OPTION>
+<option value="9050300702">PS Chak Ladpur </OPTION>
+<option value="9050322901">PS Chakduli </OPTION>
+<option value="9050341401">PS Chakjeem </OPTION>
+<option value="9050319202">PS Chandpur </OPTION>
+<option value="9050319201">PS Chandpur </OPTION>
+<option value="9050311201">PS Chandupura 1 </OPTION>
+<option value="9050311215">PS Chandupura 2 </OPTION>
+<option value="9050321401">PS Chandupuri </OPTION>
+<option value="9050318101">PS Chattarpur </OPTION>
+<option value="9050340901">PS Chauhdda </OPTION>
+<option value="9050327503">PS Chaukhandi </OPTION>
+<option value="9050315502">PS Chaupura 2 Second </OPTION>
+<option value="9050315501">PS Chaupura1 First </OPTION>
+<option value="9050336001">PS Chhaparra </OPTION>
+<option value="9050307901">PS Chhitaria Jageer </OPTION>
+<option value="9050341001">PS Chidda Wala </OPTION>
+<option value="9050303901">PS Daranagar </OPTION>
+<option value="9050339909">PS Dariyal 1 </OPTION>
+<option value="9050339908">PS Dariyal 2 </OPTION>
+<option value="9050341301">PS Dayawala </OPTION>
+<option value="9050322201">PS Devipura </OPTION>
+<option value="9050306101">PS Dhakka Nagalia </OPTION>
+<option value="9050307101">PS Dhanaura </OPTION>
+<option value="9050302301">PS Dhanauri 1 </OPTION>
+<option value="9050302328">PS Dhanauri 2 </OPTION>
+<option value="9050308401">PS Dhanupura </OPTION>
+<option value="9050317803">PS Dharampur Uttari </OPTION>
+<option value="9050305801">PS Dheeraj Nagar </OPTION>
+<option value="9050322101">PS Dhimar Khera </OPTION>
+<option value="9050315006">PS Dhokpuri 2 </OPTION>
+<option value="9050315001">PS Dhokpuri Tanda </OPTION>
+<option value="9050327402">PS Dhuliya Ganj </OPTION>
+<option value="9050304501">PS Dilari </OPTION>
+<option value="9050316230">PS Duliwala </OPTION>
+<option value="9050320701">PS Dundawala </OPTION>
+<option value="9050308301">PS Faijulla Nagar </OPTION>
+<option value="9050320204">PS Fazalpur </OPTION>
+<option value="9050320208">PS FAZILPUR </OPTION>
+<option value="9050303501">PS Gaddi Nagla </OPTION>
+<option value="9050318701">PS Gagannagli </OPTION>
+<option value="9050320301">PS GAJJUPURA</OPTION>
+<option value="9050321601">PS Gajraulla </OPTION>
+<option value="9050304301">PS Gammanpura </OPTION>
+<option value="9050318702">PS Gangawala </OPTION>
+<option value="9050341101">PS Golu Tanda </OPTION>
+<option value="9050309601">PS Goshipura Patti Kala </OPTION>
+<option value="9050304601">PS Govindpura </OPTION>
+<option value="9050321004">PS Hakeem Ganj Near Raipur </OPTION>
+<option value="9050321001">PS Hakeem Ganj Tanda </OPTION>
+<option value="9050301401">PS Hamirpur </OPTION>
+<option value="9050321101">PS Hardaspur Kothra </OPTION>
+<option value="9050304901">PS Harnagla </OPTION>
+<option value="9050337106">PS Hasanpur </OPTION>
+<option value="9050337103">PS Hasanpur North </OPTION>
+<option value="9050304401">PS Hashminagar </OPTION>
+<option value="9050342001">PS Hazrat Nagar </OPTION>
+<option value="9050339602">PS Husain Ganj </OPTION>
+<option value="9050315901">PS Imarta Rai </OPTION>
+<option value="9050335901">PS Imarti </OPTION>
+<option value="9050316119">PS Imratpur </OPTION>
+<option value="9050302901">PS Jahangeerpur </OPTION>
+<option value="9050320101">PS Jalaf Nagla </OPTION>
+<option value="9050343701">PS Jallus Nar </OPTION>
+<option value="9050306001">PS Jalpur </OPTION>
+<option value="9050312801">PS Jatpura </OPTION>
+<option value="9050309401">PS Jawalapur </OPTION>
+<option value="9050344401">PS Jhaupura/Gajupura</OPTION>
+<option value="9050341801">PS Jodawala </OPTION>
+<option value="9050310801">PS Kaithola </OPTION>
+<option value="9050344501">PS Kajuwa Khera </OPTION>
+<option value="9050343801">PS Kali Nagar </OPTION>
+<option value="9050340601">PS KANGAN GADI </OPTION>
+<option value="9050309201">PS Karimpur </OPTION>
+<option value="9050309202">PS Karimpur Gujar Wala </OPTION>
+<option value="9050305601">PS Karkhera </OPTION>
+<option value="9050306201">PS Karkheri </OPTION>
+<option value="9050305901">PS Kasiya Kunda </OPTION>
+<option value="9050305001">PS Keshav Nagli </OPTION>
+<option value="9050305002">PS Kesho Nagli </OPTION>
+<option value="9050313101">PS Khandi Khera </OPTION>
+<option value="9050322801">PS Khanpur Garvi </OPTION>
+<option value="9050309101">PS Khanpur North </OPTION>
+<option value="9050339203">PS Khardiya </OPTION>
+<option value="9050301101">PS Khempur 1 </OPTION>
+<option value="9050301102">PS Khempur 2 </OPTION>
+<option value="9050301110">PS Khemwala </OPTION>
+<option value="9050307601">PS Khera Gajroula </OPTION>
+<option value="9050314701">PS Khera Tanda </OPTION>
+<option value="9050309801">PS Khushalpur </OPTION>
+<option value="9050312901">PS Kishanpur Dhula Nagla </OPTION>
+<option value="9050310001">PS Kishanpur Mholagarh </OPTION>
+<option value="9050308601">PS Kishanpur R.P </OPTION>
+<option value="9050334801">PS Kumhariya Kala </OPTION>
+<option value="9050344101">PS Kundanpur </OPTION>
+<option value="9050313501">PS Kundesara </OPTION>
+<option value="9050313301">PS Kundesari </OPTION>
+<option value="9050306403">PS Kunwar Pur </OPTION>
+<option value="9050306401">PS Kunwarpur Nankar </OPTION>
+<option value="9050300701">PS Ladpur </OPTION>
+<option value="9050307701">PS Ladpur Bibi </OPTION>
+<option value="9050314601">PS Lakheempur </OPTION>
+<option value="9050307801">PS Lakhman Nagla </OPTION>
+<option value="9050311401">PS Lalpur </OPTION>
+<option value="9050311001">PS Lamba Khera </OPTION>
+<option value="9050305701">PS Laxmi Nagar </OPTION>
+<option value="9050313401">PS Lodipur Nayak </OPTION>
+<option value="9050333704">PS Lohari </OPTION>
+<option value="9050320401">PS Machiyagarh </OPTION>
+<option value="9050300301">PS Madhupuri </OPTION>
+<option value="9050311102">PS Mahuakhera </OPTION>
+<option value="9050311101">PS Mahuakhera </OPTION>
+<option value="9050343003">PS Majhra Amir Khan </OPTION>
+<option value="9050306301">PS Majhra Bhadur </OPTION>
+<option value="9050309604">PS Majhra Goshipura </OPTION>
+<option value="9050337202">PS Majhra Hasan </OPTION>
+<option value="9050344201">PS Majhra Khaprail </OPTION>
+<option value="9050337602">PS Majhra Khushalpur </OPTION>
+<option value="9050343401">PS Majhra Kunda </OPTION>
+<option value="9050307704">PS Majhra Ladpur </OPTION>
+<option value="9050340801">PS Majhra Matkhunna </OPTION>
+<option value="9050341501">PS Majhra Nirottam </OPTION>
+<option value="9050315101">PS Majhra Viram </OPTION>
+<option value="9050322001">PS Mandwa </OPTION>
+<option value="9050316317">PS Manpur 1 </OPTION>
+<option value="9050316314">PS Manpur 2 </OPTION>
+<option value="9050309901">PS Mansoorpur </OPTION>
+<option value="9050302401">PS Manullapur </OPTION>
+<option value="9050340229">PS Marghati </OPTION>
+<option value="9050328113">PS Matkhera 1 </OPTION>
+<option value="9050328109">PS Matkhera 2 </OPTION>
+<option value="9050340501">PS MAZRA EVAJ </OPTION>
+<option value="9050304201">PS Mehandi Nagar 1 </OPTION>
+<option value="9050300901">PS Mehandi Nagar 2 </OPTION>
+<option value="9050321901">PS Mehmodpur </OPTION>
+<option value="9050325302">PS Mewla Dharu </OPTION>
+<option value="9050301501">PS Mewla Farm </OPTION>
+<option value="9050312101">PS Mewla Kalan </OPTION>
+<option value="9050310002">PS Mholagarh </OPTION>
+<option value="9050344601">PS Milak Bhure Khan </OPTION>
+<option value="9050335801">PS Milak Dundi </OPTION>
+<option value="9050342601">PS Milak Gulam Ali </OPTION>
+<option value="9050301901">PS Milak Kaji </OPTION>
+<option value="9050340701">PS Milak Malgan </OPTION>
+<option value="9050314501">PS Milak Mufti </OPTION>
+<option value="9050343102">PS Milak Mundi </OPTION>
+<option value="9050323604">PS Milak Naukharid </OPTION>
+<option value="9050339001">PS Milak Taj Khan </OPTION>
+<option value="9050325904">PS Mirapur </OPTION>
+<option value="9050303802">PS Mohabbat Ganj Tanda </OPTION>
+<option value="9050303801">PS Mohabbat Nagar </OPTION>
+<option value="9050321307">PS Mohanpura </OPTION>
+<option value="9050321301">PS Mohanpura </OPTION>
+<option value="9050304701">PS Motipura Khod </OPTION>
+<option value="9050307501">PS Mugalpura </OPTION>
+<option value="9050302801">PS Mukrampur </OPTION>
+<option value="9050336202">PS Mukutpur </OPTION>
+<option value="9050312501">PS Mundiya </OPTION>
+<option value="9050306901">PS Munshi Ganj </OPTION>
+<option value="9050344701">PS Musapura </OPTION>
+<option value="9050301603">PS Mushtafad 2 </OPTION>
+<option value="9050301605">PS Mustafabad </OPTION>
+<option value="9050301601">PS Mustafabad Khurd </OPTION>
+<option value="9050336303">PS Muwana </OPTION>
+<option value="9050318501">PS Nabi Ganj 1 </OPTION>
+<option value="9050318504">PS Nabi Ganj 2 </OPTION>
+<option value="9050324202">PS Nagaliya </OPTION>
+<option value="9050320801">PS Nanhe Ka Majhra </OPTION>
+<option value="9050308801">PS Nankar Rani </OPTION>
+<option value="9050312701">PS Narayanpur </OPTION>
+<option value="9050302601">PS Narpat Nagar 1 </OPTION>
+<option value="9050302609">PS Narpat Nagar 2 </OPTION>
+<option value="9050339502">PS Nawab Ganj Parsal </OPTION>
+<option value="9050339503">PS Nawab Nagar </OPTION>
+<option value="9050307301">PS Naya Gaun </OPTION>
+<option value="9050339302">PS Nogaja </OPTION>
+<option value="9050306801">PS Noorpur </OPTION>
+<option value="9050306803">PS Noorpur </OPTION>
+<option value="9050306601">PS Padampur </OPTION>
+<option value="9050320501">PS Padpuri </OPTION>
+<option value="9050304801">PS Paigambarpur </OPTION>
+<option value="9050313901">PS Parvatpur </OPTION>
+<option value="9050339804">PS Pashupura </OPTION>
+<option value="9050302101">PS Pasiapura </OPTION>
+<option value="9050333103">PS Pipalsana </OPTION>
+<option value="9050318910">PS Pipli Nayak 1 </OPTION>
+<option value="9050318901">PS Pipli Nayak 2 </OPTION>
+<option value="9050314801">PS Prithvi Nagar </OPTION>
+<option value="9050306701">PS Pushwara </OPTION>
+<option value="9050310901">PS Rafatpur </OPTION>
+<option value="9050300424">PS Raipur </OPTION>
+<option value="9050342301">PS Rajjawala </OPTION>
+<option value="9050314001">PS Rajpura Tanda </OPTION>
+<option value="9050314002">PS Rajpura Tanda </OPTION>
+<option value="9050326705">PS Ramnagar Lateefpur </OPTION>
+<option value="9050342501">PS Rampur Dhamman </OPTION>
+<option value="9050320608">PS Rasoolpur </OPTION>
+<option value="9050320601">PS Rasoolpur Fareedpur </OPTION>
+<option value="9050300101">PS Ratanpura </OPTION>
+<option value="9050311602">PS Ratua Nagla </OPTION>
+<option value="9050317022">PS Raza Nagar </OPTION>
+<option value="9050309701">PS Rehmat Ganj 1 </OPTION>
+<option value="9050335601">PS Rehmat Ganj 2 </OPTION>
+<option value="9050307201">PS Renka Nagla </OPTION>
+<option value="9050311801">PS Roopapur </OPTION>
+<option value="9050303101">PS Rushtam Nagar Near Chappara </OPTION>
+<option value="9050303103">PS Rustamnagar Near Raypur </OPTION>
+<option value="9050305201">PS Sahria Jawahar </OPTION>
+<option value="9050315405">PS Said Nagar </OPTION>
+<option value="9050315401">PS Saidnagar Mundiya </OPTION>
+<option value="9050343901">PS Sakatpura </OPTION>
+<option value="9050301801">PS Salwe Nagar </OPTION>
+<option value="9050325603">PS Samodiya </OPTION>
+<option value="9050322301">PS Sarakthal </OPTION>
+<option value="9050334901">PS Sarkadi </OPTION>
+<option value="9050343201">PS Sattu Nagla </OPTION>
+<option value="9050319501">PS Sedu Ka Majhra </OPTION>
+<option value="9050319502">PS Seduwala </OPTION>
+<option value="9050315301">PS Sehariya Lakha </OPTION>
+<option value="9050310201">PS Semra Ladpur </OPTION>
+<option value="9050320902">PS Senta Khera </OPTION>
+<option value="9050324502">PS Shadi Nagar </OPTION>
+<option value="9050301701">PS Shadi Nagar Hazira </OPTION>
+<option value="9050339401">PS Shaheed Nagar </OPTION>
+<option value="9050308201">PS Shahpura </OPTION>
+<option value="9050321801">PS Shamshabad </OPTION>
+<option value="9050301201">PS Shazadnagar </OPTION>
+<option value="9050310301">PS Shekhupura </OPTION>
+<option value="9050308501">PS Shikar Gah </OPTION>
+<option value="9050309001">PS Shikarpur </OPTION>
+<option value="9050335701">PS Shiv Nagar </OPTION>
+<option value="9050333701">PS Shiv Nagar Lohari </OPTION>
+<option value="9050314401">PS Shivpuri </OPTION>
+<option value="9050342101">PS Sihora </OPTION>
+<option value="9050305401">PS Sikandrabad </OPTION>
+<option value="9050311901">PS Sirka Patti </OPTION>
+<option value="9050344301">PS Sitla </OPTION>
+<option value="9050316001">PS Sonakpur </OPTION>
+<option value="9050314301">PS Suraj Pur </OPTION>
+<option value="9050315801">PS Swar 1 </OPTION>
+<option value="9050315865">PS Swar 2 </OPTION>
+<option value="9050301301">PS Tahkala </OPTION>
+<option value="9050316201">PS Tanda No. 1 </OPTION>
+<option value="9050316242">PS Tanda No. 2 </OPTION>
+<option value="9050316238">PS Tanda No. 3 </OPTION>
+<option value="9050343501">PS Tar Ka Majhra </OPTION>
+<option value="9050318401">PS Tarakpuri </OPTION>
+<option value="9050314303">PS Telipura </OPTION>
+<option value="9050344801">PS Thunapur </OPTION>
+<option value="9050307001">PS Todipura </OPTION>
+<option value="9050344001">PS Trilokpur </OPTION>
+<option value="9050322701">PS Vagee </OPTION>
+<option value="9050334101">PS Vamna </OPTION>
+<option value="9050340301">PS VEVAKTA </OPTION>
+<option value="9050340101">PS Yusuf Nagar </OPTION>
+<option value="9050302201">PS Zameen Ganj </OPTION>
+</select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label> UDISE Code -</label>
+                    </div>
+                        
+                    <div class="col-sm-2">
+                        <select name="UDISE Code" class="form-control" id="udice"></select>
+                    </div>
+
+               
+                    
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-sm-2">
+                        <label>Headmaster / Incharge</label>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <input class="form-control" id="HMName" name="Headmaster / Incharge" onchange="checkNameField(this)" placeholder="Head Master Name" type="text" value="" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Headmaster/ Incharge Mobile</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="HMMobile" maxlength="10" name="Headmaster/ Incharge Ph." onchange="checkMobileNumber(this)" onkeyup="return isNumber(event)" placeholder="Head Master Mobile No" type="text" value="" />
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="hidden" name="School Name" id="Sname" type="" class="form-control">
+                    </div>
+           
+
+            </fieldset>
+            <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive" id="divPS">
+                <table id="tblPS" class="table table-bordered">
+                    <thead style=" background: #ffbc95;font-weight:bold">
+                        <tr>
+                            <th colspan="10" style="color: black;" class="text-center"> PS </th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2" style="color: black;">कक्षा</th>
+                            <th rowspan="2" style="color: black;">Enroll</th>
+                            <th colspan="2" style="color: black;">हिन्दी</th>
+                            <th colspan="2" style="color: black;">गणित</th>
+                            <th colspan="2" style="color: black;">अंग्रेज़ी</th>
+                            <th style="color: black;">पर्यावरण</th>
+                            <th style="color: black;">संस्कृत</th>
+                        </tr>
+                        <tr>
+                            <th style="background:#8ea9db;color: black;">पाठ्य पुस्तक</th>
+                            <th style="background:#8ea9db;color: black;">कार्य पुस्तिका</th>
+                            <th style="background:#8ea9db;color: black;">पाठ्य पुस्तक</th>
+                            <th style="background:#8ea9db;color: black;">कार्य पुस्तिका</th>
+                            <th style="background:#8ea9db;color: black;">पाठ्य पुस्तक</th>
+                            <th style="background:#8ea9db;color: black;">कार्य पुस्तिका</th>
+                            <th style="background:#8ea9db;color: black;">पाठ्य पुस्तक</th>
+                            <th style="background:#8ea9db;color: black;">पाठ्य पुस्तक</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style=" background: #e8bc9b">
+                                कक्षा-1
+                                <input id="ClassId_0" name="lstPSSubject[0].ClassId" type="hidden" value="" />
+                                <input id="ClassName_0" name="lstPSSubject[0].ClassName" type="hidden" value="" />
+                            </th>
+                            <td><input class="form-control" id="enroll_0" name="1-Enroll " onblur="chkSumGreaterEnroll2(this)" onkeyup="checkNumeric(this),PSSumOfClass1()" type="text"/></td>
+
+                            <td><input class="form-control" id="Hindi_PatyaPustak_0" name="1-Hindi-text" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass2()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Hindi_KaaryaPustak_0" name="1-Hindi-work" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass3()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Ganit_PatyaPustak_0" name="lstPSSubject[0].Ganit_PatyaPustak" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass4()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_KaaryaPustak_0" name="1-Maths-work" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass5()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Angrezi_PatyaPustak_0" name="lstPSSubject[0].Angrezi_PatyaPustak" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass6()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Angrezi_KaaryaPustak_0" name="lstPSSubject[0].Angrezi_KaaryaPustak" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass7()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Paryavaran_PatyaPustak_0" name="lstPSSubject[0].Paryavaran_PatyaPustak" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass8()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Sanskrit_PatyaPustak_0" name="lstPSSubject[0].Sanskrit_PatyaPustak" onblur="chkSumGreaterclass1(this)" onkeyup="checkNumeric(this),PSSumOfClass9()" type="text" value="" /></td>
+
+                        </tr>
+                        <tr>
+                            <th style=" background: #e8bc9b">
+                                कक्षा-2
+                                <input id="ClassId_1" name="lstPSSubject[1].ClassId" type="hidden" value="" />
+                                <input id="ClassName_1" name="lstPSSubject[1].ClassName" type="hidden" value="" />
+                            </th>
+                            <td><input class="form-control" id="enroll_1" name="2-Enroll" onblur="chkSumGreaterEnroll2(this)" onkeyup="checkNumeric(this),PSSumOfClass1()" type="text" value="" /></td>
+
+                            <td><input class="form-control" id="Hindi_PatyaPustak_1" name="2-Hindi-text" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass2()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Hindi_KaaryaPustak_1" name="2-Hindi-work" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass3()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_PatyaPustak_1" name="2-Maths-text" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass4()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_KaaryaPustak_1" name="2-Maths-work" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass5()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Angrezi_PatyaPustak_1" name="lstPSSubject[1].Angrezi_PatyaPustak" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass6()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Angrezi_KaaryaPustak_1" name="lstPSSubject[1].Angrezi_KaaryaPustak" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass7()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Paryavaran_PatyaPustak_1" name="lstPSSubject[1].Paryavaran_PatyaPustak" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass8()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Sanskrit_PatyaPustak_1" name="lstPSSubject[1].Sanskrit_PatyaPustak" onblur="chkSumGreaterclass2(this)" onkeyup="checkNumeric(this),PSSumOfClass9()" type="text" value="" /></td>
+
+                        </tr>
+                        <tr>
+                            <th style=" background: #e8bc9b">
+                                कक्षा-3
+                                <input id="ClassId_2" name="lstPSSubject[2].ClassId" type="hidden" value="" />
+                                <input id="ClassName_2" name="lstPSSubject[2].ClassName" type="hidden" value="" />
+                            </th>
+                            <td><input class="form-control" id="enroll_2" name="3-Enroll " onblur="chkSumGreaterEnroll3(this)" onkeyup="checkNumeric(this),PSSumOfClass1()" type="text" value="" /></td>
+
+                            <td><input class="form-control" id="Hindi_PatyaPustak_2" name="3-Hindi-text" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass2()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Hindi_KaaryaPustak_2" name="lstPSSubject[2].Hindi_KaaryaPustak" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass3()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_PatyaPustak_2" name="3-Maths-text" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass4()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_KaaryaPustak_2" name="3-Maths-work" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass5()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_PatyaPustak_2" name="3-Eng-text" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass6()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_KaaryaPustak_2" name="3-Eng-work" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass7()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Paryavaran_PatyaPustak_2" name="3-Environment" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass8()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Sanskrit_PatyaPustak_2" name="3-Sanskrit" onblur="chkSumGreaterclass3(this)" onkeyup="checkNumeric(this),PSSumOfClass9()" type="text" value="" /></td>
+
+                        </tr>
+                        <tr>
+                            <th style=" background: #e8bc9b">
+                                कक्षा-4
+                                <input id="ClassId_3" name="lstPSSubject[3].ClassId" type="hidden" value="" />
+                                <input id="ClassName_3" name="lstPSSubject[3].ClassName" type="hidden" value="" />
+                            </th>
+                            <td><input class="form-control" id="enroll_3" name="4-Enroll" onblur="chkSumGreaterEnroll4(this)" onkeyup="checkNumeric(this),PSSumOfClass1()" type="text" value="" /></td>
+
+                            <td><input class="form-control" id="Hindi_PatyaPustak_3" name="4-Hindi-text" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass2()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Hindi_KaaryaPustak_3" name="lstPSSubject[3].Hindi_KaaryaPustak" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass3()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_PatyaPustak_3" name="4-Maths-text" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass4()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_KaaryaPustak_3" name="4-Maths-work" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass5()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_PatyaPustak_3" name="4-Eng-text" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass6()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_KaaryaPustak_3" name="4-Eng-work" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass7()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Paryavaran_PatyaPustak_3" name="4-Environment" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass8()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Sanskrit_PatyaPustak_3" name="4-Sanskrit" onblur="chkSumGreaterclass4(this)" onkeyup="checkNumeric(this),PSSumOfClass9()" type="text" value="" /></td>
+
+                        </tr>
+                        <tr>
+                            <th style=" background: #e8bc9b">
+                                कक्षा-5
+                                <input id="ClassId_4" name="lstPSSubject[4].ClassId" type="hidden" value="" />
+                                <input id="ClassName_4" name="lstPSSubject[4].ClassName" type="hidden" value="" />
+                            </th>
+                            <td><input class="form-control" id="enroll_4" name="5-Enroll " onblur="chkSumGreaterEnroll5(this)" onkeyup="checkNumeric(this),PSSumOfClass1()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Hindi_PatyaPustak_4" name="5-Hindi-text" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass2()" type="text" value="" /></td>
+                            <td><input Readonly="readonly" class="form-control" id="Hindi_KaaryaPustak_4" name="lstPSSubject[4].Hindi_KaaryaPustak" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass3()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_PatyaPustak_4" name="5-Maths-text" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass4()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Ganit_KaaryaPustak_4" name="5-Maths-work" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass5()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_PatyaPustak_4" name="5-Eng-text" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass6()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Angrezi_KaaryaPustak_4" name="5-Eng-work" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass7()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Paryavaran_PatyaPustak_4" name="5-Environment" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass8()" type="text" value="" /></td>
+                            <td><input class="form-control" id="Sanskrit_PatyaPustak_4" name="5-Sanskrit" onblur="chkSumGreaterclass5(this)" onkeyup="checkNumeric(this),PSSumOfClass9()" type="text" value="" /></td>
+
+                        </tr>
+                        <tr>
+                            <th style=" background: #ffc000">योग</th>
+                            <td>
+                                <input type="text" name="Total-Enroll" id="enroll_5" class="form-control" readonly="readonly" />
+
+                                
+
+
+                            </td>
+                            <td>
+                                <input type="text" id="Hindi_PatyaPustak_5" name="Total-Hindi-text" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+
+                            </td>
+                            <td>
+                                <input type="text" id="Hindi_KaaryaPustak_5" name="Total-Hindi-work" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+
+                            </td>
+                            <td>
+                                <input type="text" id="Ganit_PatyaPustak_5" name="Total-Maths-text" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+
+                            </td>
+                            <td>
+                                <input type="text" id="Ganit_KaaryaPustak_5" name="Total-Maths-work" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+
+                            </td>
+                            <td>
+                                <input type="text" id="Angrezi_PatyaPustak_5" name="Total-Eng-text" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+                            </td>
+                            <td>
+                                <input type="text" id="Angrezi_KaaryaPustak_5" name="Total-Eng-work" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+                            </td>
+                            <td>
+                                <input type="text" id="Paryavaran_PatyaPustak_5" name="Total-Enviroment" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+                            </td>
+                            <td>
+                                <input type="text" id="Sanskrit_PatyaPustak_5" name="Total-Sanskrit" class="form-control" onkeyup="checkNumeric(this)" readonly="readonly" />
+                                
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+        <div id="divSearch">
+            
+            <br />
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2">
+                    <input value="Submit" type="button" id="btn_save" class="btn btn-success form-control" onclick="CheckvalidationSchoolPSUPS(this)" onautocomplete="disable()">
+                    </form>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+        <input id="StudentTextBookDistributionId" name="StudentTextBookDistributionId" type="hidden" value="" />
+    </div>
+    <script>
+        function CheckvalidationSchoolPSUPS(obj) {
+
+            chkSumGreaterclass1()
+            chkSumGreaterclass2()
+            chkSumGreaterclass3()
+            chkSumGreaterclass4()
+            chkSumGreaterclass5()
+            chkSumGreaterclass6()
+            chkSumGreaterclass7()
+            chkSumGreaterclass8()
+            if ($('#ddl_school').val() == "0") {
+                alert("Select School");
+
+            }
+            else if ($('#ddlAcademicYear').val() == "0") {
+                alert("Select Academic Year");
+
+            }
+            else if ($('#ddlSchoolMedium').val() == "0") {
+                alert("Select School Medium");
+
+
+            }
+            else if ($('#HMName').val() == "" || $('#HMName').val() == null) {
+                alert("Enter Headmaster Name");
+                $('#HMName').val();
+            }
+            else if ($('#HMMobile').val() == "0" || $('#HMMobile').val() == "" || $('#HMMobile').val() == null) {
+                alert("Enter Headmaster Mobile");
+                $('#HMMobile').val();
+            }
+
+            else {
+                GetLoading();
+                $(obj).attr('type', 'submit');
+            }
+        }
+
+
+        function UPSSumOfClass1() {
+            if ($('#enroll0').val() == null || $('#enroll0').val() == "") {
+                $('#enroll0').val('0')
+            }
+            if ($('#enroll1').val() == null || $('#enroll1').val() == "") {
+                $('#enroll1').val('0')
+            }
+            if ($('#enroll2').val() == null || $('#enroll2').val() == "") {
+                $('#enroll2').val('0')
+            }
+            var sum = parseInt($('#enroll2').val()) + parseInt($('#enroll1').val()) + parseInt($('#enroll0').val())
+            $('#enroll3').val(sum)
+        }
+        function UPSSumOfClass2() {
+            if ($('#Hindi_PatyaPustak0').val() == null || $('#Hindi_PatyaPustak0').val() == "") {
+                $('#Hindi_PatyaPustak0').val('0')
+            }
+            if ($('#Hindi_PatyaPustak1').val() == null || $('#Hindi_PatyaPustak1').val() == "") {
+                $('#Hindi_PatyaPustak1').val('0')
+            }
+            if ($('#Hindi_PatyaPustak2').val() == null || $('#Hindi_PatyaPustak2').val() == "") {
+                $('#Hindi_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Hindi_PatyaPustak2').val()) + parseInt($('#Hindi_PatyaPustak1').val()) + parseInt($('#Hindi_PatyaPustak0').val())
+            $('#Hindi_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass3() {
+            if ($('#Ganit_PatyaPustak0').val() == null || $('#Ganit_PatyaPustak0').val() == "") {
+                $('#Ganit_PatyaPustak0').val('0')
+            }
+            if ($('#Ganit_PatyaPustak1').val() == null || $('#Ganit_PatyaPustak1').val() == "") {
+                $('#Ganit_PatyaPustak1').val('0')
+            }
+            if ($('#Ganit_PatyaPustak2').val() == null || $('#Ganit_PatyaPustak2').val() == "") {
+                $('#Ganit_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Ganit_PatyaPustak2').val()) + parseInt($('#Ganit_PatyaPustak1').val()) + parseInt($('#Ganit_PatyaPustak0').val())
+            $('#Ganit_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass4() {
+            if ($('#Angrezi_PatyaPustak0').val() == null || $('#Angrezi_PatyaPustak0').val() == "") {
+                $('#Angrezi_PatyaPustak0').val('0')
+            }
+            if ($('#Angrezi_PatyaPustak1').val() == null || $('#Angrezi_PatyaPustak1').val() == "") {
+                $('#Angrezi_PatyaPustak1').val('0')
+            }
+            if ($('#Angrezi_PatyaPustak2').val() == null || $('#Angrezi_PatyaPustak2').val() == "") {
+                $('#Angrezi_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Angrezi_PatyaPustak2').val()) + parseInt($('#Angrezi_PatyaPustak1').val()) + parseInt($('#Angrezi_PatyaPustak0').val())
+            $('#Angrezi_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass5() {
+            if ($('#Bhugol_PatyaPustak0').val() == null || $('#Bhugol_PatyaPustak0').val() == "") {
+                $('#Bhugol_PatyaPustak0').val('0')
+            }
+            if ($('#Bhugol_PatyaPustak1').val() == null || $('#Bhugol_PatyaPustak1').val() == "") {
+                $('#Bhugol_PatyaPustak1').val('0')
+            }
+            if ($('#Bhugol_PatyaPustak2').val() == null || $('#Bhugol_PatyaPustak2').val() == "") {
+                $('#Bhugol_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Bhugol_PatyaPustak2').val()) + parseInt($('#Bhugol_PatyaPustak1').val()) + parseInt($('#Bhugol_PatyaPustak0').val())
+            $('#Bhugol_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass6() {
+            if ($('#Sanskrit_PatyaPustak0').val() == null || $('#Sanskrit_PatyaPustak0').val() == "") {
+                $('#Sanskrit_PatyaPustak0').val('0')
+            }
+
+            if ($('#Sanskrit_PatyaPustak1').val() == null || $('#Sanskrit_PatyaPustak1').val() == "") {
+                $('#Sanskrit_PatyaPustak1').val('0')
+            }
+            if ($('#Sanskrit_PatyaPustak2').val() == null || $('#Sanskrit_PatyaPustak2').val() == "") {
+                $('#Sanskrit_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Sanskrit_PatyaPustak2').val()) + parseInt($('#Sanskrit_PatyaPustak1').val()) + parseInt($('#Sanskrit_PatyaPustak0').val())
+            $('#Sanskrit_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass7() {
+            if ($('#MahaanVyaktitva_PatyaPustak0').val() == null || $('#MahaanVyaktitva_PatyaPustak0').val() == "") {
+                $('#MahaanVyaktitva_PatyaPustak0').val('0')
+            }
+
+            if ($('#MahaanVyaktitva_PatyaPustak1').val() == null || $('#MahaanVyaktitva_PatyaPustak1').val() == "") {
+                $('#MahaanVyaktitva_PatyaPustak1').val('0')
+            }
+            if ($('#MahaanVyaktitva_PatyaPustak2').val() == null || $('#MahaanVyaktitva_PatyaPustak2').val() == "") {
+                $('#MahaanVyaktitva_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#MahaanVyaktitva_PatyaPustak2').val()) + parseInt($('#MahaanVyaktitva_PatyaPustak1').val()) + parseInt($('#MahaanVyaktitva_PatyaPustak0').val())
+            $('#MahaanVyaktitva_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass8() {
+            if ($('#HamaraParyavaran_PatyaPustak0').val() == null || $('#HamaraParyavaran_PatyaPustak0').val() == "") {
+                $('#HamaraParyavaran_PatyaPustak0').val('0')
+            }
+
+            if ($('#HamaraParyavaran_PatyaPustak1').val() == null || $('#HamaraParyavaran_PatyaPustak1').val() == "") {
+                $('#HamaraParyavaran_PatyaPustak1').val('0')
+            }
+            if ($('#HamaraParyavaran_PatyaPustak2').val() == null || $('#HamaraParyavaran_PatyaPustak2').val() == "") {
+                $('#HamaraParyavaran_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#HamaraParyavaran_PatyaPustak2').val()) + parseInt($('#HamaraParyavaran_PatyaPustak1').val()) + parseInt($('#HamaraParyavaran_PatyaPustak0').val())
+            $('#HamaraParyavaran_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass9() {
+            if ($('#GrehShilp_PatyaPustak0').val() == null || $('#GrehShilp_PatyaPustak0').val() == "") {
+                $('#GrehShilp_PatyaPustak0').val('0')
+            }
+
+            if ($('#GrehShilp_PatyaPustak1').val() == null || $('#GrehShilp_PatyaPustak1').val() == "") {
+                $('#GrehShilp_PatyaPustak1').val('0')
+            }
+            if ($('#GrehShilp_PatyaPustak2').val() == null || $('#GrehShilp_PatyaPustak2').val() == "") {
+                $('#GrehShilp_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#GrehShilp_PatyaPustak2').val()) + parseInt($('#GrehShilp_PatyaPustak1').val()) + parseInt($('#GrehShilp_PatyaPustak0').val())
+            $('#GrehShilp_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass10() {
+            if ($('#Scout_PatyaPustak0').val() == null || $('#Scout_PatyaPustak0').val() == "") {
+                $('#Scout_PatyaPustak0').val('0')
+            }
+
+            if ($('#Scout_PatyaPustak1').val() == null || $('#Scout_PatyaPustak1').val() == "") {
+                $('#Scout_PatyaPustak1').val('0')
+            }
+            if ($('#Scout_PatyaPustak2').val() == null || $('#Scout_PatyaPustak2').val() == "") {
+                $('#Scout_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#Scout_PatyaPustak2').val()) + parseInt($('#Scout_PatyaPustak1').val()) + parseInt($('#Scout_PatyaPustak0').val())
+            $('#Scout_PatyaPustak3').val(sum)
+        }
+        function UPSSumOfClass11() {
+
+            if ($('#KhelAurSwasthya_PatyaPustak0').val() == null || $('#KhelAurSwasthya_PatyaPustak0').val() == "") {
+                $('#KhelAurSwasthya_PatyaPustak0').val('0')
+            }
+
+            if ($('#KhelAurSwasthya_PatyaPustak1').val() == null || $('#KhelAurSwasthya_PatyaPustak1').val() == "") {
+                $('#KhelAurSwasthya_PatyaPustak1').val('0')
+            }
+            if ($('#KhelAurSwasthya_PatyaPustak2').val() == null || $('#KhelAurSwasthya_PatyaPustak2').val() == "") {
+                $('#KhelAurSwasthya_PatyaPustak2').val('0')
+            }
+            var sum = parseInt($('#KhelAurSwasthya_PatyaPustak2').val()) + parseInt($('#KhelAurSwasthya_PatyaPustak1').val()) + parseInt($('#KhelAurSwasthya_PatyaPustak0').val())
+            $('#KhelAurSwasthya_PatyaPustak3').val(sum)
+        }
+
+
+        function PSSumOfClass1() {
+            if ($('#enroll_0').val() == null || $('#enroll_0').val() == "") {
+                $('#enroll_0').val('0')
+            }
+            if ($('#enroll_1').val() == null || $('#enroll_1').val() == "") {
+                $('#enroll_1').val('0')
+            }
+            if ($('#enroll_2').val() == null || $('#enroll_2').val() == "") {
+                $('#enroll_2').val('0')
+            }
+            if ($('#enroll_3').val() == null || $('#enroll_3').val() == "") {
+                $('#enroll_3').val('0')
+            }
+            if ($('#enroll_4').val() == null || $('#enroll_4').val() == "") {
+                $('#enroll_4').val('0')
+            }
+            var sum = parseInt($('#enroll_0').val()) + parseInt($('#enroll_1').val()) + parseInt($('#enroll_2').val()) + parseInt($('#enroll_3').val()) + parseInt($('#enroll_4').val())
+            $('#enroll_5').val(sum)
+        }
+        function PSSumOfClass2() {
+            if ($('#Hindi_PatyaPustak_0').val() == null || $('#Hindi_PatyaPustak_0').val() == "") {
+                $('#Hindi_PatyaPustak_0').val('0')
+            }
+            if ($('#Hindi_PatyaPustak_1').val() == null || $('#Hindi_PatyaPustak_1').val() == "") {
+                $('#Hindi_PatyaPustak_1').val('0')
+            }
+            if ($('#Hindi_PatyaPustak_2').val() == null || $('#Hindi_PatyaPustak_2').val() == "") {
+                $('#Hindi_PatyaPustak_2').val('0')
+            }
+            if ($('#Hindi_PatyaPustak_3').val() == null || $('#Hindi_PatyaPustak_3').val() == "") {
+                $('#Hindi_PatyaPustak_3').val('0')
+            }
+            if ($('#Hindi_PatyaPustak_4').val() == null || $('#Hindi_PatyaPustak_4').val() == "") {
+                $('#Hindi_PatyaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Hindi_PatyaPustak_0').val()) + parseInt($('#Hindi_PatyaPustak_1').val()) + parseInt($('#Hindi_PatyaPustak_2').val()) + parseInt($('#Hindi_PatyaPustak_3').val()) + parseInt($('#Hindi_PatyaPustak_4').val())
+            $('#Hindi_PatyaPustak_5').val(sum)
+        }
+        function PSSumOfClass3() {
+            if ($('#Hindi_KaaryaPustak_0').val() == null || $('#Hindi_KaaryaPustak_0').val() == "") {
+                $('#Hindi_KaaryaPustak_0').val('0')
+            }
+            if ($('#Hindi_KaaryaPustak_1').val() == null || $('#Hindi_KaaryaPustak_1').val() == "") {
+                $('#Hindi_KaaryaPustak_1').val('0')
+            }
+            if ($('#Hindi_KaaryaPustak_2').val() == null || $('#Hindi_KaaryaPustak_2').val() == "") {
+                $('#Hindi_KaaryaPustak_2').val('0')
+            }
+            if ($('#Hindi_KaaryaPustak_3').val() == null || $('#Hindi_KaaryaPustak_3').val() == "") {
+                $('#Hindi_KaaryaPustak_3').val('0')
+            }
+            if ($('#Hindi_KaaryaPustak_4').val() == null || $('#Hindi_KaaryaPustak_4').val() == "") {
+                $('#Hindi_KaaryaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Hindi_KaaryaPustak_0').val()) + parseInt($('#Hindi_KaaryaPustak_1').val()) + parseInt($('#Hindi_KaaryaPustak_2').val()) + parseInt($('#Hindi_KaaryaPustak_3').val()) + parseInt($('#Hindi_KaaryaPustak_4').val())
+            $('#Hindi_KaaryaPustak_5').val(sum)
+        }
+        function PSSumOfClass4() {
+            if ($('#Ganit_PatyaPustak_0').val() == null || $('#Ganit_PatyaPustak_0').val() == "") {
+                $('#Ganit_PatyaPustak_0').val('0')
+            }
+            if ($('#Ganit_PatyaPustak_1').val() == null || $('#Ganit_PatyaPustak_1').val() == "") {
+                $('#Ganit_PatyaPustak_1').val('0')
+            }
+            if ($('#Ganit_PatyaPustak_2').val() == null || $('#Ganit_PatyaPustak_2').val() == "") {
+                $('#Ganit_PatyaPustak_2').val('0')
+            }
+            if ($('#Ganit_PatyaPustak_3').val() == null || $('#Ganit_PatyaPustak_3').val() == "") {
+                $('#Ganit_PatyaPustak_3').val('0')
+            }
+            if ($('#Ganit_PatyaPustak_4').val() == null || $('#Ganit_PatyaPustak_4').val() == "") {
+                $('#Ganit_PatyaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Ganit_PatyaPustak_0').val()) + parseInt($('#Ganit_PatyaPustak_1').val()) + parseInt($('#Ganit_PatyaPustak_2').val()) + parseInt($('#Ganit_PatyaPustak_3').val()) + parseInt($('#Ganit_PatyaPustak_4').val())
+            $('#Ganit_PatyaPustak_5').val(sum)
+        }
+        function PSSumOfClass5() {
+            if ($('#Ganit_KaaryaPustak_0').val() == null || $('#Ganit_KaaryaPustak_0').val() == "") {
+                $('#Ganit_KaaryaPustak_0').val('0')
+            }
+            if ($('#Ganit_KaaryaPustak_1').val() == null || $('#Ganit_KaaryaPustak_1').val() == "") {
+                $('#Ganit_KaaryaPustak_1').val('0')
+            }
+            if ($('#Ganit_KaaryaPustak_2').val() == null || $('#Ganit_KaaryaPustak_2').val() == "") {
+                $('#Ganit_KaaryaPustak_2').val('0')
+            }
+            if ($('#Ganit_KaaryaPustak_3').val() == null || $('#Ganit_KaaryaPustak_3').val() == "") {
+                $('#Ganit_KaaryaPustak_3').val('0')
+            }
+            if ($('#Ganit_KaaryaPustak_4').val() == null || $('#Ganit_KaaryaPustak_4').val() == "") {
+                $('#Ganit_KaaryaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Ganit_KaaryaPustak_0').val()) + parseInt($('#Ganit_KaaryaPustak_1').val()) + parseInt($('#Ganit_KaaryaPustak_2').val()) + parseInt($('#Ganit_KaaryaPustak_3').val()) + parseInt($('#Ganit_KaaryaPustak_4').val())
+            $('#Ganit_KaaryaPustak_5').val(sum)
+        }
+        function PSSumOfClass6() {
+            if ($('#Angrezi_PatyaPustak_0').val() == null || $('#Angrezi_PatyaPustak_0').val() == "") {
+                $('#Angrezi_PatyaPustak_0').val('0')
+            }
+
+            if ($('#Angrezi_PatyaPustak_1').val() == null || $('#Angrezi_PatyaPustak_1').val() == "") {
+                $('#Angrezi_PatyaPustak_1').val('0')
+            }
+            if ($('#Angrezi_PatyaPustak_2').val() == null || $('#Angrezi_PatyaPustak_2').val() == "") {
+                $('#Angrezi_PatyaPustak_2').val('0')
+            }
+            if ($('#Angrezi_PatyaPustak_3').val() == null || $('#Angrezi_PatyaPustak_3').val() == "") {
+                $('#Angrezi_PatyaPustak_3').val('0')
+            }
+            if ($('#Angrezi_PatyaPustak_4').val() == null || $('#Angrezi_PatyaPustak_4').val() == "") {
+                $('#Angrezi_PatyaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Angrezi_PatyaPustak_0').val()) + parseInt($('#Angrezi_PatyaPustak_1').val()) + parseInt($('#Angrezi_PatyaPustak_2').val()) + parseInt($('#Angrezi_PatyaPustak_3').val()) + parseInt($('#Angrezi_PatyaPustak_4').val())
+            $('#Angrezi_PatyaPustak_5').val(sum)
+        }
+        function PSSumOfClass7() {
+            if ($('#Angrezi_KaaryaPustak_0').val() == null || $('#Angrezi_KaaryaPustak_0').val() == "") {
+                $('#Angrezi_KaaryaPustak_0').val('0')
+            }
+
+            if ($('#Angrezi_KaaryaPustak_1').val() == null || $('#Angrezi_KaaryaPustak_1').val() == "") {
+                $('#Angrezi_KaaryaPustak_1').val('0')
+            }
+            if ($('#Angrezi_KaaryaPustak_2').val() == null || $('#Angrezi_KaaryaPustak_2').val() == "") {
+                $('#Angrezi_KaaryaPustak_2').val('0')
+            }
+            if ($('#Angrezi_KaaryaPustak_3').val() == null || $('#Angrezi_KaaryaPustak_3').val() == "") {
+                $('#Angrezi_KaaryaPustak_3').val('0')
+            }
+            if ($('#Angrezi_KaaryaPustak_4').val() == null || $('#Angrezi_KaaryaPustak_4').val() == "") {
+                $('#Angrezi_KaaryaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Angrezi_KaaryaPustak_0').val()) + parseInt($('#Angrezi_KaaryaPustak_1').val()) + parseInt($('#Angrezi_KaaryaPustak_2').val()) + parseInt($('#Angrezi_KaaryaPustak_3').val()) + parseInt($('#Angrezi_KaaryaPustak_4').val())
+            $('#Angrezi_KaaryaPustak_5').val(sum)
+        }
+        function PSSumOfClass8() {
+            if ($('#Paryavaran_PatyaPustak_0 ').val() == null || $('#Paryavaran_PatyaPustak_0').val() == "") {
+                $('#Paryavaran_PatyaPustak_0 ').val('0')
+            }
+
+            if ($('#Paryavaran_PatyaPustak_1').val() == null || $('#Paryavaran_PatyaPustak_1').val() == "") {
+                $('#Paryavaran_PatyaPustak_1').val('0')
+            }
+            if ($('#Paryavaran_PatyaPustak_2').val() == null || $('#Paryavaran_PatyaPustak_2').val() == "") {
+                $('#Paryavaran_PatyaPustak_2').val('0')
+            }
+
+            if ($('#Paryavaran_PatyaPustak_3').val() == null || $('#Paryavaran_PatyaPustak_3').val() == "") {
+                $('#Paryavaran_PatyaPustak_3').val('0')
+            }
+            if ($('#Paryavaran_PatyaPustak_4').val() == null || $('#Paryavaran_PatyaPustak_4').val() == "") {
+                $('#Paryavaran_PatyaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Paryavaran_PatyaPustak_0').val()) + parseInt($('#Paryavaran_PatyaPustak_1').val()) + parseInt($('#Paryavaran_PatyaPustak_2').val()) + parseInt($('#Paryavaran_PatyaPustak_3').val()) + parseInt($('#Paryavaran_PatyaPustak_4').val())
+            $('#Paryavaran_PatyaPustak_5').val(sum)
+        }
+        function PSSumOfClass9() {
+            debugger
+            if ($('#Sanskrit_PatyaPustak_0').val() == null || $('#Sanskrit_PatyaPustak_0').val() == "") {
+                $('#Sanskrit_PatyaPustak_0').val('0')
+            }
+            if ($('#Sanskrit_PatyaPustak_1').val() == null || $('#Sanskrit_PatyaPustak_1').val() == "") {
+                $('#Sanskrit_PatyaPustak_1').val('0')
+            }
+            if ($('#Sanskrit_PatyaPustak_2').val() == null || $('#Sanskrit_PatyaPustak_2').val() == "") {
+                $('#Sanskrit_PatyaPustak_2').val('0')
+            }
+            if ($('#Sanskrit_PatyaPustak_3').val() == null || $('#Sanskrit_PatyaPustak_3').val() == "") {
+                $('#Sanskrit_PatyaPustak_3').val('0')
+            }
+            if ($('#Sanskrit_PatyaPustak_4').val() == null || $('#Sanskrit_PatyaPustak_4').val() == "") {
+                $('#Sanskrit_PatyaPustak_4').val('0')
+            }
+            var sum = parseInt($('#Sanskrit_PatyaPustak_0').val()) + parseInt($('#Sanskrit_PatyaPustak_1').val()) + parseInt($('#Sanskrit_PatyaPustak_2').val()) + parseInt($('#Sanskrit_PatyaPustak_3').val()) + parseInt($('#Sanskrit_PatyaPustak_4').val())
+            $('#Sanskrit_PatyaPustak_5').val(sum)
+        }
+    </script>
+    <script>
+        function chkSumGreaterclass1(obj) {
+
+            if ($('#enroll_0').val() == null || $('#enroll_0').val() == "") {
+                $('#enroll_0').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll_0').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass2(obj) {
+            if ($('#enroll_1').val() == null || $('#enroll_1').val() == "") {
+                $('#enroll_1').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll_1').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass3(obj) {
+            if ($('#enroll_2').val() == null || $('#enroll_2').val() == "") {
+                $('#enroll_2').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll_2').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass4(obj) {
+            if ($('#enroll_3').val() == null || $('#enroll_3').val() == "") {
+                $('#enroll_3').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll_3').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass5(obj) {
+            if ($('#enroll_4').val() == null || $('#enroll_4').val() == "") {
+                $('#enroll_4').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll_4').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass6(obj) {
+
+            if ($('#enroll0').val() == null || $('#enroll0').val() == "") {
+                $('#enroll0').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll0').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass7(obj) {
+            if ($('#enroll1').val() == null || $('#enroll1').val() == "") {
+                $('#enroll1').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll1').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+        function chkSumGreaterclass8(obj) {
+            if ($('#enroll2').val() == null || $('#enroll2').val() == "") {
+                $('#enroll2').val('0')
+            }
+
+            var actualVal = parseInt($('#enroll2').val())
+            var Calculate = parseInt($(obj).val());
+            if (actualVal < Calculate) {
+                alert("Enroll Value is not less than subject values");
+                $(obj).val('0')
+                return false;
+            }
+        }
+    </script>
+    <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzRht1Ms-H_rFcIhxP8y1HJQBUeLbvsQXA3U9BA8EbBNkaDDCc/exec'
+            const form = document.forms['google-sheet']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => alert("Your Data has been Saved Sucessfully."))
+                .catch(error => console.error('Error!', error.message))
+                $('#btn_save').attr('disabled','disabled');
+                form.reset();
+
+            })
+
+          </script> 
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</form>
+</body>
+</html>
